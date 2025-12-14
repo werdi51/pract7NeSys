@@ -1,0 +1,237 @@
+﻿<Window x:Class="_7.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_7"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="630" Width="700">
+    <!--<Window.Resources>
+        <local:User x:Key="medik"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Source="{StaticResource medik}"/>
+    </Window.DataContext>-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="215"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="197"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <GroupBox x:Name="RegisterDoctorPanel" Grid.Row="0" Grid.RowSpan="2">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Идентификатор"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding CurrentDoctor.Id}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Имя"/>
+                    <TextBox Name="Id_Doctor" Margin="5" Width="50" Text="{Binding CurrentDoctor.Name,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="специализация"/>
+                    <ComboBox Width="120" x:Name="SpecialisationComboBox"
+          SelectedValue="{Binding CurrentDoctor.Specialisation, UpdateSourceTrigger=PropertyChanged}"
+          SelectedValuePath="Content">
+                        <ComboBoxItem Content="Терапевт"/>
+                        <ComboBoxItem Content="Лор"/>
+                        <ComboBoxItem Content="Хирург"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="фамилия"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding CurrentDoctor.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Отчество"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding CurrentDoctor.MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Пароль"/>
+                    <PasswordBox x:Name="PasswordBox1" Width="100" Margin="5" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Подтверждение"/>
+                    <PasswordBox x:Name="PasswordBox2" Width="100" Margin="5" />
+                </StackPanel>
+
+                <Button Content="Добавить доктора" Click="DoctorAdd" />
+
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="LoginDoctorPanel" Grid.Row="2" Grid.Column="0">
+            <StackPanel>
+
+                <Label Content="Для входа П введите ID и пароль"/>
+                <TextBox x:Name="LoginIdTextBox" Margin="5"/>
+                <PasswordBox x:Name="LoginPasswordBox" Margin="5"/>
+                <Button Content="войти" Click="DoctorFind"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="CurrentDoctorPanel" Grid.Column="0" Grid.Row="3">
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="ID:"/>
+                    <TextBlock x:Name="DoctorIdTextBlock" Margin="5" Width="100" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Имя"/>
+                    <TextBlock x:Name="DoctorNameTextBlock" Margin="5" Width="100" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Специализация:"/>
+                    <TextBlock x:Name="DoctorSpecializationTextBlock" Margin="5" Width="100" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Фамилия:"/>
+                    <TextBlock x:Name="DoctorLastNameTextBlock" Margin="5" Width="100" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Отчество:"/>
+                    <TextBlock x:Name="DoctorMiddleNameTextBlock" Margin="5" Width="100" />
+                </StackPanel>
+
+
+
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="PatientSearchPanel" Grid.RowSpan="1" Grid.ColumnSpan="3">
+            <StackPanel  Orientation="Horizontal" Margin="233,0,233,0">
+                <Label Content="ID:"/>
+                <TextBox x:Name="PatientSearchTextBox" Width="100" Margin="2" />
+                <Button Content="Найти" Click="PatientSearch"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="RegisterPatientPanel" Grid.Column="2" Grid.RowSpan="2">
+            <StackPanel >
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Имя"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding NewPatient.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Фамилия"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding NewPatient.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Отчество"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding NewPatient.MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="День рождения"/>
+                    <DatePicker x:Name="NewPatientBirthdayPicker" Margin="5" Width="120"
+                SelectedDate="{Binding NewPatient.BirthdayDate, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <Button Content="Зарегистрировать пациента" Click="PatientAdd" Margin="0,10,0,0"/>
+
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="PatientEditPanel" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2">
+            <StackPanel >
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="День рождения"/>
+                    <DatePicker x:Name="EditPatientBirthdayPicker" Margin="5" Width="120"
+                SelectedDate="{Binding EditPatient.BirthdayDate, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Имя"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding EditPatient.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Фамилия"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding EditPatient.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Отчество"/>
+                    <TextBox Margin="5" Width="50" Text="{Binding EditPatient.MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+
+                <Button Content="Сохранить изменения" Click="PatientSave" Margin="0,10,0,0"/>
+                <Button Content="Сбросить к исходным" Click="PatientReset" Margin="0,5,0,0"/>
+
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="PatientInfoPanel" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3">
+            <StackPanel>
+
+                <Label Content="День рождения"/>
+                <TextBlock Margin="5" Width="200" Text="{Binding DisplayPatient.BirthdayString}"/>
+
+                <Label Content="Имя"/>
+                <TextBlock Margin="5" Width="200" Text="{Binding DisplayPatient.Name}"/>
+
+                <Label Content="Фамилия"/>
+                <TextBlock Margin="5" Width="200" Text="{Binding DisplayPatient.LastName}"/>
+
+                <Label Content="Отчество"/>
+                <TextBlock Margin="5" Width="200" Text="{Binding DisplayPatient.MiddleName}"/>
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Дата и время приема:"/>
+                    <TextBlock Margin="5" Width="150" Text="{Binding DisplayPatient.LastAppointment}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="последний доктор:"/>
+                    <TextBlock Margin="5" Width="200" Text="{Binding DisplayPatient.LastDoctorDisplay}"/>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Диагноз"/>
+                    <TextBox Margin="10" Text="{Binding DisplayPatient.Diagnosis, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Рекомендации"/>
+                    <TextBox Margin="10" Padding="10" Text="{Binding DisplayPatient.Recommendations, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <Button Content="сохранить" Click="CompleteAppointment_Click" Margin="10" Padding="10" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="StatsPanel" Grid.Row="4" Grid.ColumnSpan="3">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="количество Пользователей"/>
+                <TextBlock x:Name="DoctorCountText" Text="0" />
+                <Label Content="количество пациентов"/>
+                <TextBlock x:Name="PatientCountText" Text="0" />
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+</Window>
